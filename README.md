@@ -22,7 +22,7 @@ StaticBody2D adalah node yang tidak bergerak dan tidak terpengaruh oleh simulasi
 
 Ubah nilai atribut Mass pada tipe RigidBody2D secara bebas di scene BlueShip, lalu coba jalankan scene MainLevel. Apa yang terjadi?
 
-Mengubah massa BlueShip secara langsung memengaruhi seberapa cepat dan bagaimana BlueShip bergerak dalam simulasi fisika di MainLevel.
+Mengubah massa BlueShip memengaruhi seberapa cepat dan bagaimana BlueShip bergerak dalam simulasi fisika di MainLevel. Tetapi simulasi fisika di sini godot tidak sepenuhnya di dunia nyata, energi potensial di sini sedikit berbeda sehingga massa tidak berengaruh signifikan kecuali jika diubah dengan angka yang sangat besar atau sangat kecil.
 
 Ubah nilai atribut Disabled pada tipe CollisionShape2D di scene StonePlatform, lalu coba jalankan scene MainLevel. Apa yang terjadi?
 
