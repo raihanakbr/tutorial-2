@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://34b0rplvefj0"]
+
+[ext_resource type="Script" path="res://scenes/PlatformWhite.gd" id="1_xpo7l"]
+[ext_resource type="PackedScene" uid="uid://l3xe85gmspwd" path="res://scenes/SnowPlatform.tscn" id="2_skxwn"]
+[ext_resource type="PackedScene" uid="uid://dpn8yv5daaajq" path="res://scenes/GreenShip.tscn" id="3_uir71"]
+[ext_resource type="PackedScene" uid="uid://drj3wq2m7hw5s" path="res://scenes/Meteor.tscn" id="4_i8vry"]
+[ext_resource type="Script" path="res://scenes/MeteorSpawner.gd" id="5_dibk2"]
+
+[node name="SecondLevel" type="Node"]
+
+[node name="PlatformWhite" type="Node2D" parent="."]
+position = Vector2(73, 572)
+script = ExtResource("1_xpo7l")
+
+[node name="SnowPlatform" parent="PlatformWhite" instance=ExtResource("2_skxwn")]
+
+[node name="SnowPlatform2" parent="PlatformWhite" instance=ExtResource("2_skxwn")]
+position = Vector2(70, 0)
+
+[node name="SnowPlatform3" parent="PlatformWhite" instance=ExtResource("2_skxwn")]
+position = Vector2(140, 0)
+
+[node name="GreenShip" parent="." instance=ExtResource("3_uir71")]
+position = Vector2(144, 102)
+
+[node name="Meteor" parent="." instance=ExtResource("4_i8vry")]
+position = Vector2(997, 360)
+
+[node name="MeteorSpawner" type="Node2D" parent="."]
+position = Vector2(0, 1)
+script = ExtResource("5_dibk2")

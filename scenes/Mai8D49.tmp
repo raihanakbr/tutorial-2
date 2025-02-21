@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdoksexcakmop"]
+[gd_scene load_steps=10 format=3 uid="uid://cdoksexcakmop"]
 
 [ext_resource type="PackedScene" uid="uid://y5a4e3ajuy2r" path="res://scenes/StonePlatform.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://8nygixypq438" path="res://assets/space_background.png" id="1_thmbl"]
 [ext_resource type="PackedScene" uid="uid://datfp8kxjrjg" path="res://scenes/BlueShip.tscn" id="2"]
 [ext_resource type="Script" path="res://scenes/PlatformBlue.gd" id="3"]
 [ext_resource type="Script" path="res://scenes/ObjectiveArea.gd" id="4"]
-[ext_resource type="Script" path="res://scenes/void.gd" id="6_film7"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(138.75, 79)
@@ -55,44 +54,11 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_unhmp"]
-resource_name = "death"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Polygon2D:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Void")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.99),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"_restart"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_otq7x"]
 _data = {
 "RESET": SubResource("Animation_m0dqe"),
-"death": SubResource("Animation_unhmp"),
 "fade_out": SubResource("Animation_ogrhw")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_epfa2"]
-size = Vector2(2515, 99)
 
 [node name="MainLevel" type="Node"]
 
@@ -131,12 +97,4 @@ libraries = {
 "": SubResource("AnimationLibrary_otq7x")
 }
 
-[node name="Void" type="Area2D" parent="."]
-script = ExtResource("6_film7")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Void"]
-position = Vector2(536, 763)
-shape = SubResource("RectangleShape2D_epfa2")
-
 [connection signal="body_entered" from="ObjectiveArea" to="ObjectiveArea" method="_on_ObjectiveArea_body_entered"]
-[connection signal="body_entered" from="Void" to="Void" method="_on_body_entered"]

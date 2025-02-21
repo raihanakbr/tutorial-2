@@ -1,0 +1,156 @@
+[gd_scene load_steps=15 format=3 uid="uid://34b0rplvefj0"]
+
+[ext_resource type="Texture2D" uid="uid://8nygixypq438" path="res://assets/space_background.png" id="1_kkggg"]
+[ext_resource type="Script" path="res://scenes/PlatformWhite.gd" id="1_xpo7l"]
+[ext_resource type="PackedScene" uid="uid://l3xe85gmspwd" path="res://scenes/SnowPlatform.tscn" id="2_skxwn"]
+[ext_resource type="PackedScene" uid="uid://dpn8yv5daaajq" path="res://scenes/GreenShip.tscn" id="3_uir71"]
+[ext_resource type="PackedScene" uid="uid://drj3wq2m7hw5s" path="res://scenes/Meteor.tscn" id="4_i8vry"]
+[ext_resource type="Script" path="res://scenes/MeteorSpawner.gd" id="5_dibk2"]
+[ext_resource type="Script" path="res://scenes/ObjectiveArea2.gd" id="6_unng3"]
+[ext_resource type="Script" path="res://scenes/void.gd" id="8_qnqap"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i0r5h"]
+size = Vector2(139, 117)
+
+[sub_resource type="Animation" id="Animation_pvgm3"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ObjectiveArea")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"change_scene_to_win"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7ta0i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rt21q"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Void")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.99),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_restart"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s5nrm"]
+_data = {
+"RESET": SubResource("Animation_7ta0i"),
+"death": SubResource("Animation_rt21q"),
+"fade_out": SubResource("Animation_pvgm3")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cybft"]
+size = Vector2(17490, 452)
+
+[node name="SecondLevel" type="Node"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(576, 324.5)
+scale = Vector2(1.4475, 1.095)
+texture = ExtResource("1_kkggg")
+
+[node name="PlatformWhite" type="Node2D" parent="."]
+position = Vector2(143, 572)
+script = ExtResource("1_xpo7l")
+
+[node name="SnowPlatform" parent="PlatformWhite" instance=ExtResource("2_skxwn")]
+position = Vector2(-70, 0)
+
+[node name="SnowPlatform2" parent="PlatformWhite" instance=ExtResource("2_skxwn")]
+
+[node name="SnowPlatform3" parent="PlatformWhite" instance=ExtResource("2_skxwn")]
+position = Vector2(70, 0)
+
+[node name="GreenShip" parent="." instance=ExtResource("3_uir71")]
+position = Vector2(144, 102)
+
+[node name="Meteor" parent="." instance=ExtResource("4_i8vry")]
+position = Vector2(997, 360)
+
+[node name="MeteorSpawner" type="Node2D" parent="."]
+position = Vector2(0, 1)
+script = ExtResource("5_dibk2")
+
+[node name="Timer" type="Timer" parent="MeteorSpawner"]
+one_shot = true
+
+[node name="ObjectiveArea" type="Area2D" parent="."]
+position = Vector2(1085, 55)
+script = ExtResource("6_unng3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectiveArea"]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_i0r5h")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 0)
+polygon = PackedVector2Array(-80, -79, 1273, -65, 1257, 737, -68, 720)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_s5nrm")
+}
+
+[node name="Void" type="Area2D" parent="."]
+script = ExtResource("8_qnqap")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Void"]
+position = Vector2(433, 1143)
+shape = SubResource("RectangleShape2D_cybft")
+
+[connection signal="timeout" from="MeteorSpawner/Timer" to="MeteorSpawner" method="_on_timer_timeout"]
+[connection signal="body_entered" from="ObjectiveArea" to="ObjectiveArea" method="_on_body_entered"]
+[connection signal="body_entered" from="Void" to="Void" method="_on_body_entered"]

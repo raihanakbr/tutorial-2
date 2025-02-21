@@ -1,0 +1,13 @@
+CollisionShape2D
+Area2D
+AnimationPlayer
+Polygon2D
+Button
+HBoxContainer
+Label
+Sprite2D
+Timer
+Node2D
+StaticBody2D
+Node
+RigidBody2D
